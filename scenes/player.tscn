@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0jxdkmlj8fqj"]
+
+[ext_resource type="Texture2D" uid="uid://jydp7asmgemm" path="res://assets/player/dolphin_down.png" id="1_3vb7e"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_o0fsw"]
+[ext_resource type="Texture2D" uid="uid://bp3wanadkit7f" path="res://assets/player/dolphin_up.png" id="2_uv0s6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31tyi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vb7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv0s6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vb7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uv0s6")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vn0i6"]
+height = 42.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_o0fsw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_31tyi")
+animation = &"swim"
+frame_progress = 0.656297
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_vn0i6")
