@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc34pb2r6o4ag"]
+[gd_scene load_steps=7 format=3 uid="uid://dc34pb2r6o4ag"]
 
 [ext_resource type="PackedScene" uid="uid://d0jxdkmlj8fqj" path="res://scenes/player.tscn" id="1_a7o0w"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_ctt7k"]
 [ext_resource type="Texture2D" uid="uid://jn8g52gsei5q" path="res://assets/water_background.png" id="2_cv4cl"]
 [ext_resource type="PackedScene" uid="uid://psxms8map4yk" path="res://scenes/scrolling_ocean_floor.tscn" id="2_h6g24"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pxhd6"]
+distance = -347.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sbb8"]
+size = Vector2(640, 140)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ctt7k")
@@ -36,3 +42,15 @@ offset_bottom = 160.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
+
+[node name="RigidBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("WorldBoundaryShape2D_pxhd6")
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(320, 70)
+shape = SubResource("RectangleShape2D_5sbb8")

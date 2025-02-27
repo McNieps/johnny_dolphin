@@ -1,27 +1,24 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED := 500.0
+const ACCELERATION := 1600
+
+const SPEED_TO_MAX_ANGLE := 600
+const ANGLE_WHEN_MAX_SPEED := deg_to_rad(45)
 
 
-func _physics_process(_delta: float) -> void:
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.y = direction * SPEED
-	else:
-		velocity.y = move_toward(velocity.x, 0, SPEED)
+func _physics_process(delta: float) -> void:
+	var direction := Input.get_axis("player_up", "player_down")
+	velocity.y = move_toward(velocity.y, direction * SPEED, ACCELERATION*delta)
+		
 
 	move_and_slide()
 
-func animate() -> void:
-	$AnimatedSprite2D.play("swim")
 
 func _process(delta: float) -> void:
-	pass
+	rotation = velocity.y/SPEED_TO_MAX_ANGLE*ANGLE_WHEN_MAX_SPEED
+
+
+func animate() -> void:
+	$AnimatedSprite2D.play("swim")
