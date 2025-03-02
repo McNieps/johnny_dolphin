@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://dcgjglqvfrm0y"]
+
+[ext_resource type="Script" path="res://scripts/splash.gd" id="1_3k5y7"]
+[ext_resource type="AudioStream" uid="uid://dwichsgngdx38" path="res://assets/sounds/water_enter_1.ogg" id="2_lh5ib"]
+[ext_resource type="AudioStream" uid="uid://djwbrytrhlucm" path="res://assets/sounds/water_enter_2.ogg" id="3_p10r4"]
+[ext_resource type="AudioStream" uid="uid://fg5aa5kdrnyx" path="res://assets/sounds/water_enter_3.ogg" id="4_bcj76"]
+[ext_resource type="AudioStream" uid="uid://b6gyj3exmhdt4" path="res://assets/sounds/water_leave_1.ogg" id="5_37sif"]
+[ext_resource type="AudioStream" uid="uid://dadpyxvvo2ufc" path="res://assets/sounds/water_leave_2.ogg" id="6_uof26"]
+
+[sub_resource type="Curve" id="Curve_n530o"]
+max_value = 5.0
+bake_resolution = 5
+_data = [Vector2(0.0393258, 2.36264), 0.0, 5.27281, 0, 0, Vector2(1, 0), -3.42308, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dh4gt"]
+streams_count = 3
+stream_0/stream = ExtResource("2_lh5ib")
+stream_1/stream = ExtResource("3_p10r4")
+stream_2/stream = ExtResource("4_bcj76")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s5f3b"]
+streams_count = 2
+stream_0/stream = ExtResource("5_37sif")
+stream_1/stream = ExtResource("6_uof26")
+
+[node name="Splash" type="CPUParticles2D"]
+z_index = 1039
+amount = 208
+explosiveness = 0.74
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 18.07
+direction = Vector2(0, -1)
+spread = 30.45
+initial_velocity_min = 224.82
+initial_velocity_max = 414.01
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_n530o")
+color = Color(0.858824, 0.898039, 1, 1)
+script = ExtResource("1_3k5y7")
+
+[node name="SoundWaterEnter" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_dh4gt")
+
+[node name="SoundWaterLeave" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_s5f3b")

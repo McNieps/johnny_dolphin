@@ -36,7 +36,7 @@ func position_sprites():
 		active_sprites.append(sprite)
 		sprite.show()
 
-func move_x(px: float):
+func scroll_x(px: float):
 	self.accumulated_movement += px
 	
 	@warning_ignore("narrowing_conversion")

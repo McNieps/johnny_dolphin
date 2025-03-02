@@ -1,10 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0jxdkmlj8fqj"]
+[gd_scene load_steps=15 format=3 uid="uid://d0jxdkmlj8fqj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_o0fsw"]
-[ext_resource type="Texture2D" uid="uid://bswcjbhpss87r" path="res://assets/player/dolphin_1.png" id="2_ibrmd"]
-[ext_resource type="Texture2D" uid="uid://dqlts56if1hq4" path="res://assets/player/dolphin_2.png" id="3_8b3aa"]
-[ext_resource type="Texture2D" uid="uid://b2teyc3vfn6ud" path="res://assets/player/dolphin_3.png" id="4_a75l3"]
-[ext_resource type="Texture2D" uid="uid://boajkjid8s7f3" path="res://assets/player/dolphin_4.png" id="5_k7joc"]
+[ext_resource type="Texture2D" uid="uid://bswcjbhpss87r" path="res://assets/player/components/dolphin_1.png" id="2_ibrmd"]
+[ext_resource type="Texture2D" uid="uid://dqlts56if1hq4" path="res://assets/player/components/dolphin_2.png" id="3_8b3aa"]
+[ext_resource type="Texture2D" uid="uid://b2teyc3vfn6ud" path="res://assets/player/components/dolphin_3.png" id="4_a75l3"]
+[ext_resource type="Texture2D" uid="uid://boajkjid8s7f3" path="res://assets/player/components/dolphin_4.png" id="5_k7joc"]
+[ext_resource type="Texture2D" uid="uid://8kvta4du54ub" path="res://assets/player/dolphin_1.tres" id="6_giwqh"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="6_spu1t"]
+[ext_resource type="Script" path="res://scripts/state_machine/swimming.gd" id="7_nfjn3"]
+[ext_resource type="Texture2D" uid="uid://cxfrtmw00p67c" path="res://assets/player/dolphin_2.tres" id="7_rfxu3"]
+[ext_resource type="Script" path="res://scripts/state_machine/jumping.gd" id="8_kclxh"]
+[ext_resource type="Texture2D" uid="uid://b5dmudu0krq8x" path="res://assets/player/dolphin_3.tres" id="8_q0k7x"]
+[ext_resource type="Texture2D" uid="uid://1qbkf3hgcaam" path="res://assets/player/dolphin_4.tres" id="9_5guhw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_31tyi"]
 animations = [{
@@ -33,22 +40,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_ibrmd")
+"texture": ExtResource("6_giwqh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_8b3aa")
+"texture": ExtResource("7_rfxu3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_a75l3")
+"texture": ExtResource("8_q0k7x")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_k7joc")
+"texture": ExtResource("9_5guhw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_a75l3")
+"texture": ExtResource("8_q0k7x")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_8b3aa")
+"texture": ExtResource("7_rfxu3")
 }],
 "loop": true,
 "name": &"swim",
@@ -60,15 +67,27 @@ radius = 9.0
 height = 42.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 2
 motion_mode = 1
+platform_on_leave = 2
 script = ExtResource("1_o0fsw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animation_player" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.001, 1.001)
 sprite_frames = SubResource("SpriteFrames_31tyi")
 animation = &"swim"
-frame_progress = 0.0727819
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(9, -3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_vn0i6")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_spu1t")
+initial_state = NodePath("Jumping")
+
+[node name="Swimming" type="Node" parent="StateMachine"]
+script = ExtResource("7_nfjn3")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("8_kclxh")

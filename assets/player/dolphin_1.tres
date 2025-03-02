@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://8kvta4du54ub"]
+
+[ext_resource type="Texture2D" uid="uid://dqlts56if1hq4" path="res://assets/player/components/dolphin_2.png" id="1_jg10b"]
+[ext_resource type="Texture2D" uid="uid://osnl3p76n8t7" path="res://assets/player/components/dolphin_2_n.png" id="2_gqejs"]
+
+[resource]
+diffuse_texture = ExtResource("1_jg10b")
+normal_texture = ExtResource("2_gqejs")

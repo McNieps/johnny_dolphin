@@ -1,56 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dc34pb2r6o4ag"]
+[gd_scene load_steps=4 format=3 uid="uid://dc34pb2r6o4ag"]
 
 [ext_resource type="PackedScene" uid="uid://d0jxdkmlj8fqj" path="res://scenes/player.tscn" id="1_a7o0w"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_ctt7k"]
-[ext_resource type="Texture2D" uid="uid://jn8g52gsei5q" path="res://assets/water_background.png" id="2_cv4cl"]
-[ext_resource type="PackedScene" uid="uid://psxms8map4yk" path="res://scenes/scrolling_ocean_floor.tscn" id="2_h6g24"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pxhd6"]
-distance = -347.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sbb8"]
-size = Vector2(640, 140)
+[ext_resource type="PackedScene" uid="uid://q6p2rt5ckv0f" path="res://scenes/sea.tscn" id="3_jel3i"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ctt7k")
 
 [node name="SkyBackground" type="ColorRect" parent="."]
+z_index = -101
 offset_right = 640.0
 offset_bottom = 360.0
 color = Color(0.529412, 0.52549, 1, 1)
 
-[node name="SeaBackground" type="Sprite2D" parent="."]
-position = Vector2(320, 240)
-texture = ExtResource("2_cv4cl")
-
-[node name="WaterSurfaceBack" type="ColorRect" parent="."]
-offset_top = 120.0
-offset_right = 640.0
-offset_bottom = 140.0
-
-[node name="ScrollingOceanFloor" parent="." instance=ExtResource("2_h6g24")]
-position = Vector2(-64, 335)
-image_dir = "assets/ocean_floor"
-
 [node name="Player" parent="." instance=ExtResource("1_a7o0w")]
-position = Vector2(42, 254)
+position = Vector2(42, -50)
 
-[node name="WaterSurfaceFront" type="ColorRect" parent="."]
-offset_top = 140.0
-offset_right = 640.0
-offset_bottom = 160.0
+[node name="Sea" parent="." instance=ExtResource("3_jel3i")]
+position = Vector2(0, 156)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(320, 180)
-
-[node name="RigidBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("WorldBoundaryShape2D_pxhd6")
-
-[node name="Area2D" type="Area2D" parent="."]
-gravity_space_override = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(320, 70)
-shape = SubResource("RectangleShape2D_5sbb8")
+[connection signal="on_water_enter" from="Sea" to="Player" method="_on_sea_on_water_enter"]
+[connection signal="on_water_leave" from="Sea" to="Player" method="_on_sea_on_water_leave"]

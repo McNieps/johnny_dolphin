@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bswcjbhpss87r"
-path="res://.godot/imported/dolphin_1.png-c306d4c6a9c59b3130912362a429c718.ctex"
+path="res://.godot/imported/dolphin_1.png-4416fa340bf1cba2adcf26e242248975.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/dolphin_1.png"
-dest_files=["res://.godot/imported/dolphin_1.png-c306d4c6a9c59b3130912362a429c718.ctex"]
+source_file="res://assets/player/components/dolphin_1.png"
+dest_files=["res://.godot/imported/dolphin_1.png-4416fa340bf1cba2adcf26e242248975.ctex"]
 
 [params]
 

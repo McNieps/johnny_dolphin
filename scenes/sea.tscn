@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://q6p2rt5ckv0f"]
+
+[ext_resource type="Texture2D" uid="uid://jn8g52gsei5q" path="res://assets/water_background.png" id="1_e6e6u"]
+[ext_resource type="Script" path="res://scripts/sea.gd" id="1_yjpbk"]
+[ext_resource type="PackedScene" uid="uid://psxms8map4yk" path="res://scenes/scrolling_ocean_floor.tscn" id="2_4cj6d"]
+[ext_resource type="PackedScene" uid="uid://dcgjglqvfrm0y" path="res://scenes/splash.tscn" id="2_aw3kq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74yqg"]
+size = Vector2(640, 184)
+
+[node name="Sea" type="Node2D"]
+script = ExtResource("1_yjpbk")
+splash_scene = ExtResource("2_aw3kq")
+
+[node name="SeaBackground" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(320, 93)
+scale = Vector2(1, 0.925)
+texture = ExtResource("1_e6e6u")
+
+[node name="WaterSurfaceBack" type="ColorRect" parent="."]
+z_index = -99
+offset_top = -20.0
+offset_right = 640.0
+
+[node name="WaterSurfaceFront" type="ColorRect" parent="."]
+z_index = 1
+offset_right = 640.0
+offset_bottom = 20.0
+
+[node name="ScrollingOceanFloor" parent="." instance=ExtResource("2_4cj6d")]
+z_index = -98
+position = Vector2(0, 179)
+image_dir = "assets/ocean_floor"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(320, 112)
+shape = SubResource("RectangleShape2D_74yqg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
